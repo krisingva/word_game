@@ -1,0 +1,30 @@
+<a class="left" href="/new">Generate a new word</a>
+<br>
+<h1 class="center">Guess the word game</h1>
+<br>
+<div class="center">
+  <p>Your word has <%=@word.size %> letters:</p>
+  <%= @letter_hash.values.join(" ") %>
+  <br>
+</div>
+<br>
+<br>
+<div class="left">
+  <p>Letters to pick from:</p>
+  <br>
+  <form method="post" action="/choose_letter">
+    <% @alphabet.each do |letter| %>
+      <button name="letter" value="<%= letter %>"><%= letter %></button>
+    <% end %>
+  </form>
+  <br>
+  <p>Letters already picked:</p>
+  <br>
+  <% session[:picked].each do |char|%>
+    <button name="character" value="<%= char %>"><%= char %></button>
+  <% end%>
+    <br>
+    <br>
+  <p>Points: <%= @points %>
+</div>
+

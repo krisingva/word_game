@@ -1,0 +1,11 @@
+<div class="center-middle">
+  <h1><%= session.delete(:message) %></h1>
+  <br>
+  <p>Would you like to play again?</p>
+  <form action="/new" method="get">
+    <button>Yes</button>
+  </form>
+  <form action="/finish" method="get">
+    <button>No</button>
+  </form>
+</div>
