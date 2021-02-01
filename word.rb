@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 require 'tilt/erubis'
 require 'yaml'
 
@@ -102,13 +102,8 @@ post "/choose_letter" do
   deduct_point unless word_contains_letter?(letter)
   if lost_game?
     game_lost
-  # if session[:points] == 0
-  #   session[:message] = "The game is over, the word was #{session[:word]}."
-  #   redirect "/end"
   elsif word_guessed?
     game_won
-    # session[:message] = "You guessed the word #{session[:word]}, great job!"
-    # redirect "/end"
   else
     redirect "/word"
   end

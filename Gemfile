@@ -8,4 +8,8 @@ gem "minitest"
 gem 'psych', '~> 2.0', '>= 2.0.17'
 gem 'rake'
 
+group :production do
+  gem "puma"
+end
+
 ruby "2.7.1"
