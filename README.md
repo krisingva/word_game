@@ -7,6 +7,11 @@ This is my first web application! It was built to practice the skills I learned 
 - Comes with a test suite
 - Built using Ruby 2.7.1
 - See other dependencies in the `Gemfile.lock` file
+- Deployed using Heroku
+
+To visit the heroku deployed app:
+Open up a browser and enter the following URL in the address bar:
+https://word-game-sinatra-app.herokuapp.com/
 
 To run the app locally:
 Clone or pull the repo. Once you have it on your computer and are in the `word_game` directory, use the following command in the terminal:
