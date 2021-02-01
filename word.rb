@@ -9,7 +9,11 @@ configure do
 end
 
 def load_words
-  path = File.expand_path("../word.yaml", __FILE__)
+  if ENV["RACK_ENV"] == "test"
+    path = File.expand_path("../test/words_for_tests.yaml", __FILE__)
+  else
+    path = File.expand_path("../word.yaml", __FILE__)
+  end
   YAML.load_file(path)
 end
 
@@ -58,6 +62,20 @@ def word_guessed?
   session[:placeholder].none? { |_, value| value == "_"}
 end
 
+def lost_game?
+  session[:points] == 0
+end
+
+def game_lost
+  session[:message] = "The game is over, the word was #{session[:word]}."
+  redirect "/end"
+end
+
+def game_won
+  session[:message] = "You guessed the word #{session[:word]}, great job!"
+  redirect "/end"
+end
+
 get "/" do
   setup_game
   erb :home
@@ -78,17 +96,19 @@ end
 
 post "/choose_letter" do
   letter = params[:letter]
-  p letter
   change_placeholders(letter)
   session[:available].delete(letter)
   session[:picked] << letter
   deduct_point unless word_contains_letter?(letter)
-  if session[:points] == 0
-    session[:message] = "The game is over, the word was #{session[:word]}."
-    redirect "/end"
+  if lost_game?
+    game_lost
+  # if session[:points] == 0
+  #   session[:message] = "The game is over, the word was #{session[:word]}."
+  #   redirect "/end"
   elsif word_guessed?
-    session[:message] = "You guessed the word #{session[:word]}, great job!"
-    redirect "/end"
+    game_won
+    # session[:message] = "You guessed the word #{session[:word]}, great job!"
+    # redirect "/end"
   else
     redirect "/word"
   end
