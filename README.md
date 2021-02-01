@@ -6,9 +6,19 @@ This is my first web application! It was built to practice the skills I learned 
 - Not very pretty but it was fun to build!
 - Comes with a test suite
 - Built using Ruby 2.7.1
+- See other dependencies in the `Gemfile.lock` file
 
-How to run it:
-Clone or pull the repo. Once you have it on your computer, use the following command in the terminal:
-`ruby $path_to_file/word.rb`
+To run the app locally:
+Clone or pull the repo. Once you have it on your computer and are in the `word_game` directory, use the following command in the terminal:
+```
+bundle exec ruby word.rb
+```
 Then open up a browser and enter the following URL:
-http://localhost:4567/
+http://localhost:4567
+
+To run the test suite:
+```
+bundle exec rake test
+```
+
+
