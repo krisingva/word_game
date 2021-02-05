@@ -57,6 +57,22 @@ class CMSTest < Minitest::Test
     get "/word"
     post "/choose_letter", letter: "P"
 
+    # To access the form data from the request:
+    # First need to access the request:
+    # puts last_request
+    # => #<Rack::Request:0x00007fb36aa83c00>
+
+    # last_request.env returns a hash
+    # with all the info about the request. Within this env hash is an item
+    # "rack.request.form_hash"=>{"letter"=>"P"}, where the string
+    # "rack.request.form_hash" is a key with a value of a hash that contains the
+    # data submitted in the form
+    # puts last_request.env["rack.request.form_hash"]
+    # => {"letter"=>"P"}
+    # shorter alternative:
+    # puts last_request.params
+    # => {"letter"=>"P"}
+
     assert_equal 302, last_response.status
     assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     assert_equal "APPLE", session[:word]
@@ -66,6 +82,7 @@ class CMSTest < Minitest::Test
     get last_response["Location"]
 
     assert_equal 200, last_response.status
+
     assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     assert_includes last_response.body, "Your word has"
   end

@@ -14,7 +14,10 @@
   <br>
   <form method="post" action="/choose_letter">
     <% @alphabet.each do |letter| %>
+    <input type="submit" name="letter" value="<%= letter %>">
+    <!--
       <button name="letter" value="<%= letter %>"><%= letter %></button>
+    -->
     <% end %>
   </form>
   <br>
